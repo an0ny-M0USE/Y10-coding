@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Local CSV with Chart.js</title>
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- PapaParse CDN for CSV parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  
+  <style>
+    .chart-container {
+      width: 80%;
+      max-width: 800px;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chart-container">
+    <canvas id="myChart"></canvas>
+  </div>
+
+  <script>
+    // CSV file name - change as necessary
+    const csvFileName = 'data(1).csv';
+
+    // Parse the local CSV file
+    Papa.parse(csvFileName, {
+      download: true,
+      header: true,
+      skipEmptyLines: true,
+      complete: function(results) {
+        console.log("Parsed Data:", results.data);
+        renderChart(results.data);
+      },
+      error: function(err) {
+        console.error("Error reading CSV file:", err);
+      }
+    });
+
+    function renderChart(data) {
+      // Extract labels and data points from the parsed array
+      // Modify this to suit your data
+      const labels = data.map(row => row.Date);
+      const ConservativeData = data.map(row => parseFloat(row["Conservative"]));
+      const LabourData = data.map(row => parseFloat(row["Labour"]));
+      const LiberalDemocratData = data.map(row => parseFloat(row["Liberal Democrat"]));
+      const UkipData = data.map(row => parseFloat(row["UKIP"]));
+      const OtherData = data.map(row => parseFloat(row["Other"]));
+      const DonTKnowData = data.map(row => parseFloat(row["Don't know"]));
+      const NoneData = data.map(row => parseFloat(row["None"]));
+      const GreenPartyData = data.map(row => parseFloat(row["Green Party"]));
+      const ReformUkData = data.map(row => parseFloat(row["Reform UK"]));
+
+      //This is the pure charting - and will be modified based on the visualization
+      //style you choose.  Other than the connection to the data.map (noted below)
+      //this is largely independent of the data import. Any code obtained from the 
+      //chart.js site will mostly go below this point.
+      const ctx = document.getElementById('myChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,  //matches the name given in the data.map command
+          datasets: [
+            {
+              label: 'Conservative (%)',
+              data: ConservativeData,  //matches the name given in the data.map command
+              backgroundColor: 'rgba(0,135,220, 0.6)',
+              borderColor: 'rgba(0,135,220, 1)',
+              borderWidth: 1
+            },
+            {
+              label: 'Labour (%)',
+              data: LabourData,  //matches the name given in the data.map command
+              backgroundColor: 'rgba(237, 14, 14, 0.6)',
+              borderColor: 'rgba(222, 12, 12, 1)',
+              borderWidth: 1
+            },
+            {
+              label: 'Liberal Democrat (%)',
+              data: LiberalDemocratData,  //matches the name given in the data.map command
+              backgroundColor: 'rgba(245, 241, 10, 0.6)',
+              borderColor: 'rgba(235, 231, 13, 1)',
+              borderWidth: 1
+            },
+            {
+              label: 'UKIP (%)',
+              data: UkipData,  //matches the name given in the data.map command
+              backgroundColor: 'rgba(112,20,122, 0.6)',
+              borderColor: 'rgba(112,20,122, 1)',
+              borderWidth: 1
+            },
+            {
+              label: 'Other (%)',
+              data: OtherData,  //matches the name given in the data.map command
+              backgroundColor: 'rgba(79, 79, 79, 0.6)',
+              borderColor: 'rgba(71, 71, 71, 1)',
+              borderWidth: 1
+            },
+            {
+              label: "Don't know (%)",
+              data: DonTKnowData,  //matches the name given in the data.map command
+              backgroundColor: 'rgba(186, 186, 186, 0.6)',
+              borderColor: 'rgba(171, 171, 171, 1)',
+              borderWidth: 1
+            },
+            {
+              label: 'None (%)',
+              data: NoneData,  //matches the name given in the data.map command
+              backgroundColor: 'rgba(31, 27, 89, 0.6)',
+              borderColor: 'rgba(27, 24, 82, 1)',
+              borderWidth: 1
+            },
+            {
+              label: 'Green Party (%)',
+              data: GreenPartyData,  //matches the name given in the data.map command
+              backgroundColor: 'rgba(45, 219, 55, 0.6)',
+              borderColor: 'rgba(35, 209, 45 1)',
+              borderWidth: 1
+            },
+            {
+              label: 'Reform UK (%)',
+              data: ReformUkData,  //matches the name given in the data.map command
+              backgroundColor: 'rgba(27, 195, 214, 0.6)',
+              borderColor: 'rgba(24, 187, 207, 1)',
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
