@@ -3,14 +3,14 @@ options: {
   plugins: {
     title: {
       display: true,
-      text: 'UK Political Party Polling Data',
+      text: 'Which political party handles the economy the best?',
       font: {
         size: 20
       }
     },
     subtitle: {
       display: true,
-      text: 'Polling percentages over time',
+      text: 'A multiple line chart showing which British political parties British citizens believe handle the economy the best starting from January to present day.',
       font: {
         size: 14
       },
