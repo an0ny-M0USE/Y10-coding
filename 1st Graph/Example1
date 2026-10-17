@@ -1,0 +1,28 @@
+options: {
+  responsive: true,
+  plugins: {
+    title: {
+      display: true,
+      text: 'UK Political Party Polling Data',
+      font: {
+        size: 20
+      }
+    },
+    subtitle: {
+      display: true,
+      text: 'Polling percentages over time',
+      font: {
+        size: 14
+      },
+      color: '#555',
+      padding: {
+        bottom: 10
+      }
+    }
+  },
+  scales: {
+    y: {
+      beginAtZero: true
+    }
+  }
+}
