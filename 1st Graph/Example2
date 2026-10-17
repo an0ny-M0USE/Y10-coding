@@ -1,0 +1,21 @@
+scales: {
+  x: {
+    title: {
+      display: true,
+      text: 'Date',
+      font: {
+        size: 14
+      }
+    }
+  },
+  y: {
+    beginAtZero: true,
+    title: {
+      display: true,
+      text: 'Polling Percentage (%)',
+      font: {
+        size: 14
+      }
+    }
+  }
+}
